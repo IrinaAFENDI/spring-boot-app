@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> записи- Lash Manager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+    <h1>📅 Все записи</h1>
+    <a th:href="@{/}" class="btn btn-secondary">← На главную</a>
+    <a href="/add-appointment"class="btn btn-sucсess mb-3">Добавить новую запись</a>
+    <div class="mt-3">
+        <div th:each="appointment : ${appointments}" class="card mb-2">
+            <div class="card-body">
+                <h5 th:text="${appointment.client.firstName} + ' ' + ${appointment.client.lastName}"></h5>
+                <p><strong>Дата:</strong> <span th:text="${appointment.appointmentDate}"></span></p>
+                <p><strong>Эффект:</strong> <span th:text="${appointment.clientEffect}"></span></p>
+
+                <p><strong>Объем:</strong> <span th:text="${appointment.clientVolume}"></span></p>
+                <p><strong>изгиб:</strong> <span th:text="${appointment.masterCurl}"></span></p>
+
+                <p><strong>Длина:</strong> <span th:text="${appointment.masterLength}"></span></p>
+                <p><strong>заметки:</strong> <span th:text="${appointment.masterNotes}"></span>
+
+                <form th:action="@{/delete-appointment/{id}(id=${appointment.id})}"
+                      method="post"
+                      style="display: inline;">
+
+                    <!-- CSRF ТОКЕН С ПРОВЕРКОЙ -->
+                    <input th:if="${_csrf != null}"
+                           type="hidden"
+                           th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}" />
+
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        Удалить запись
+                    </button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
