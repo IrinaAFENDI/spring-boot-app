@@ -10,22 +10,21 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // Разрешаем доступ ко всем страницам без авторизации
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll()
                 )
-                // ВКЛЮЧАЕМ CSRF защиту (это важно!)
-                .csrf(csrf -> {
-                    try {
-                        csrf.init(http);
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                });
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/api/**")
+                        // Для адресов, начинающихся с /api/ — CSRF выключен
+                );
 
         return http.build();
     }
+
+
+
 }
