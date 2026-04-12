@@ -1,10 +1,15 @@
 package com.vasheprime.lashmanager.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
 
 public class AppointmentDTO {
     private Long id;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime appointmentDate;
+
     private String clientVolume;
     private String clientEffect;
     private String masterCurl;
@@ -22,7 +27,9 @@ public class AppointmentDTO {
     public void setAppointmentDate(LocalDateTime appointmentDate) { this.appointmentDate = appointmentDate; }
 
     public String getClientVolume() { return clientVolume; }
-    public void setClientVolume(String clientVolume) { this.clientVolume = this.clientVolume; }
+    public void setClientVolume(String clientVolume) {
+        this.clientVolume = clientVolume;
+    }
 
     public String getClientEffect() { return clientEffect; }
     public void setClientEffect(String clientEffect) { this.clientEffect = clientEffect; }
