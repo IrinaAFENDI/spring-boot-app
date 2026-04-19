@@ -37,3 +37,4 @@
 git clone https://github.com/IrinaAFENDI/spring-boot-app.git
 cd spring-boot-app
 mvn spring-boot:run
+Приложение запустится на http://localhost:8080
